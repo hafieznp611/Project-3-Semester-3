@@ -1,0 +1,182 @@
+body {
+    background: #ffffff;
+    margin: 0px;
+}
+
+#main {
+    padding-top: 100px;
+}
+
+.button {
+    color: #fafafa;              
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.button:hover {
+    color: rgb(152, 150, 150); 
+}
+
+#button-gmail {
+    display: inline-block;
+    border: 2px solid #858586;
+    background: rgb(255, 255, 255);
+    color: #000000;              
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+
+
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px 8%;
+    z-index: 1000;
+    gap: 20px;
+    row-gap: 10px;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+#Title{
+    color: rgb(249, 246, 246);
+    font-size: 20px;
+    margin: 0;
+}
+
+.Links {
+    
+    text-decoration: none;
+    color: white;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+#tentang {
+    margin: 50px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.08),0 20px 48px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+#img-tentang {
+    width: 200px;
+    height: 200px;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 50%; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    flex-shrink: 0; 
+}
+
+#keterangan-tentang {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    flex: 1 1 250px;
+}
+
+#keterampilan {
+    margin: 50px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.08),0 20px 48px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+#kontak {
+    margin: 50px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.08),0 20px 48px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+.Skills {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: stretch; 
+    justify-content: center;
+}
+
+.Sub-Skill {
+    width: 20%;
+    min-width: 150px;
+    flex: 1 1 150px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#footer {
+    text-align: center;
+}
+
+
+@media (max-width: 768px) {
+    #navbar {
+        padding: 15px 5%;
+        gap: 15px;
+    }
+
+    #main {
+        padding-top: 140px;
+    }
+
+    #tentang,#keterampilan,#kontak {
+        margin: 25px;
+        padding: 25px;
+    }
+
+    #tentang {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 6%;
+    }
+
+    #main {
+        padding-top: 160px;
+    }
+
+    #tentang,#keterampilan,#kontak {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .Sub-Skill {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
