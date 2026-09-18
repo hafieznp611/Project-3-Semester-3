@@ -72,7 +72,7 @@ async function muatFitur() {
       throw new Error('Format data bukan array.'); 
     } 
   
-    if (data.length === 0) { 
+    if (data.length = 0) { 
       tampilkanState('empty', 'Data kosong.'); 
       return; 
     } 

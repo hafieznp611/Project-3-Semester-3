@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "target": "Kelulusan",
+    "title": "Profil Kelulusan",
+    "items": [
+      "Pemrogram: Mengubah spesifikasi, pernyataan masalah, dan prosedur proyek menjadi alur logika terperinci agar siap untuk dikodekan ke dalam bahasa pemrograman.",
+      "Penguji Aplikasi Perangkat Lunak: Memantau dan mengendalikan perangkat periferal komputer untuk keperluan bisnis, ilmiah, teknik, dan pemrosesan data lainnya sesuai dengan instruksi pengoperasian.",
+      "Penulis Teknis: Mendokumentasikan algoritma dan/atau program secara eksplisit maupun implisit berdasarkan standar dokumentasi pengembangan perangkat lunak.",
+      "Perancang Aplikasi Perangkat Lunak: Merancang prosedur serta prosedur pemeliharaan dan pemecahan masalah (troubleshooting) sistem perangkat lunak dengan mempertimbangkan prinsip-prinsip keamanan dan K3 (Keselamatan dan Kesehatan Kerja)."
+    ]
+  },
+  {
+    "id": 2,
+    "target": "Karir",
+    "title": "Prospek Karier",
+    "items": [
+      "Insinyur Perangkat Lunak (Software Engineer): menerapkan prinsip-prinsip ilmiah dan rekayasa untuk merancang serta membangun sistem berskala besar.",
+      "Pemrogram (Programmer): berfokus terutama pada penulisan dan perbaikan kesalahan (debugging) kode tertentu.",
+      "Pengembang Full Stack / Front-End / Back-End: tiga jalur karier utama dalam pengembangan web, yang perbedaannya terutama terletak pada fokusnya—apakah pada antarmuka yang berhadapan langsung dengan pengguna, logika sisi server, atau keduanya."
+    ]
+  },
+  {
+    "id": 3,
+    "target": "Fasilitas",
+    "title": "Fasilitas",
+    "items": [
+      "Labolatorium Komputer",
+      "Ruang Kelas",
+      "Akses Internet"
+    ]
+  }
+]
