@@ -96,7 +96,7 @@ function muatProfil() {
   tombolCobaLagi.hidden = true;
   kartuProfil.hidden = true;
 
-  fetch('profise.json')
+  fetch('profile.json')
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Gagal memuat data (status ${response.status})`);
