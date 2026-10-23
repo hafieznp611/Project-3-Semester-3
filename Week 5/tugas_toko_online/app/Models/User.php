@@ -12,6 +12,7 @@ class User extends Authenticatable
     protected $keyType = 'string';
     public $timestamps = false;
 
+
     protected $fillable = [
         'id_user', 
         'nama_lengkap', 

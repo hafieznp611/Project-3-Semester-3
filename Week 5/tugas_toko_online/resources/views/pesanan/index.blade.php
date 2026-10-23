@@ -14,6 +14,7 @@
         </div>
         <a href="{{ route('pesanan.show', $o->id_order) }}">Lihat detail</a>
     </div>
+    
 @empty
     <p>Anda belum punya pesanan.</p>
 @endforelse

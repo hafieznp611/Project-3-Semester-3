@@ -36,7 +36,6 @@
 @endif
 
 @if (count($items))
-    <h3>Total: Rp {{ number_format($total, 0, ',', '.') }}</h3>
 
     <form method="post" action="{{ route('pesanan.checkout') }}">
         @csrf

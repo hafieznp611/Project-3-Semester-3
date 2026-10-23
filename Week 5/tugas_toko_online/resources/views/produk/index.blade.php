@@ -24,10 +24,12 @@
                 <div class="kecil">Stok: {{ $p->stok }}</div>
 
                 @auth
-                    <form method="post" action="{{ route('keranjang.tambah', $p->id_barang) }}">
-                        @csrf
-                        <button type="submit">Masukkan ke keranjang</button>
-                    </form>
+                    @can('use-cart')
+                        <form method="post" action="{{ route('keranjang.tambah', $p->id_barang) }}">
+                            @csrf
+                            <button type="submit">Masukkan ke keranjang</button>
+                        </form>
+                    @endcan
                 @else
                     <a href="{{ route('login') }}" class="kecil">Login untuk membeli</a>
                 @endauth

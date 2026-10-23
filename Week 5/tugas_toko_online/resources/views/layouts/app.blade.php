@@ -29,9 +29,17 @@
             <a href="{{ route('products.index') }}">Beranda</a>
 
             @auth
-                <a href="{{ route('keranjang.tampilkan') }}">Keranjang ({{ array_sum(session('keranjang', [])) }})</a>
-                <a href="{{ route('pesanan.index') }}">Pesanan Saya</a>
+                @can('use-cart')
+                    <a href="{{ route('keranjang.tampilkan') }}">Keranjang ({{ array_sum(session('keranjang', [])) }})</a>
+                    <a href="{{ route('pesanan.index') }}">Pesanan Saya</a>
+                @endcan
+
+                @can('manage-roles')
+                    <a href="{{ route('admin.users.index') }}">Kelola Role</a>
+                @endcan
+
                 <span class="kecil">Halo, {{ Auth::user()->nama_lengkap }}</span>
+
                 <form method="post" action="{{ route('logout') }}" style="display:inline">
                     @csrf
                     <button type="submit">Logout</button>
@@ -39,6 +47,8 @@
             @else
                 <a href="{{ route('login') }}">Login</a>
             @endauth
+
+            
         </nav>
         </header>
 
