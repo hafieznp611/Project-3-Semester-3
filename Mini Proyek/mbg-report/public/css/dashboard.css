@@ -70,3 +70,16 @@
 }
 .panel h3 { margin-bottom: 12px; }
 .empty { color: #9ca3af; font-size: 14px; }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        background: #16a34a;
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background .15s;
+    }
