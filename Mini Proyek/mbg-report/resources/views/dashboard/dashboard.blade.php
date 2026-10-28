@@ -28,24 +28,34 @@
     <h2>Halo, {{ $user->nama_lengkap }} 👋</h2>
     <p class="subtitle">Selamat datang di sistem pelaporan MBG.</p>
 
-    <div class="cards">
-        <div class="card">
-            <p class="card-label">Total Laporan</p>
-            <p class="card-value">0</p>
+    @can('reviewing')
+        <div class="cards">
+            <div class="card">
+                <p class="card-label">Total Laporan</p>
+                <p class="card-value">0</p>
+            </div>
+            <div class="card">
+                <p class="card-label">Menunggu</p>
+                <p class="card-value">0</p>
+            </div>
+            <div class="card">
+                <p class="card-label">Selesai</p>
+                <p class="card-value">0</p>
+            </div>
         </div>
-        <div class="card">
-            <p class="card-label">Menunggu</p>
-            <p class="card-value">0</p>
-        </div>
-        <div class="card">
-            <p class="card-label">Selesai</p>
-            <p class="card-value">0</p>
-        </div>
-    </div>
 
-    <div class="panel">
-        <h3>Laporan Terbaru</h3>
-        <p class="empty">Belum ada laporan.</p>
+        <div class="panel">
+            <h3>Laporan Terbaru</h3>
+            <p class="empty">Belum ada laporan.</p>
+        </div>
+    @endcan
+
+    @can('report')
+    <div class="cards">
+        <a href="{{ route('reports.create') }}" class="btn">Buat Laporan</a>
+
     </div>
+@endcan
+
 </main>
 @endsection

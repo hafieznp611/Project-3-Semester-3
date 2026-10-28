@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use App\Models\School;  
 
 class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): View
     {
-        //
+        $reports = $request->user()
+            ->reports()
+            ->latest()
+            ->pagination(10)
+            ->withQuerySting();
+        
+        return view('reports.index', compact('reports'));
     }
 
     /**
@@ -19,7 +27,9 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('reports.create', [
+            'schools' => School::orderBy('nama')->get(),
+        ]);
     }
 
     /**
@@ -27,7 +37,26 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'school_id'        => ['required', 'exists:schools,id'],
+            'judul'            => ['required', 'string', 'max:255'],
+            'tanggal_kejadian' => ['required', 'date', 'before_or_equal:today'],
+            'deskripsi'        => ['required', 'string', 'min:10'],
+            'foto'             => ['nullable', 'image', 'max:2048'],
+        ]);
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('reports', 'public');
+        }
+
+        $data['user_id'] = $request->user()->id;
+        $data['status']  = 'menunggu';
+
+        IncidentReport::create($data);
+
+        return redirect()
+            ->route('reports.index')
+            ->with('success', 'Laporan berhasil dikirim.');
     }
 
     /**
@@ -57,8 +86,4 @@ class ReportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
