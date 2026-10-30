@@ -14,6 +14,17 @@ return new class extends Migration
         Schema::create('incident_reports', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('school_id')->constrained('schools')->cascadeOnDelete();
+            $table->foreignId('meal_distribute_id')->nullable()->constrained('meal_distributions')->nullOndelete();
+
+            $table->string('judul');
+            $table->string('deskripsi');
+            $table->date('tanggal_kejadian');
+            $table->string('foto')->nullable();
+
+            $table->enum('status' , ['Menunggu', 'Diproses', 'Selesai', 'Ditolak'])
+                ->default('Menunggu');
         });
     }
 

@@ -1,3 +1,4 @@
+
 .topbar {
     background: #fff;
     padding: 14px 24px;
@@ -83,3 +84,66 @@
         cursor: pointer;
         transition: background .15s;
     }
+
+    .btn-detail {
+        width: fit-content;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        background: #16a34a;
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background .15s;
+        margin-left: auto;
+        display: block;
+    }
+    
+/* ================================================= */
+    /* Menghilangkan titik bullet dan menyusun ke samping */
+.my-pagination ul {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    gap: 5px; /* Jarak antar tombol */
+    align-items: center;
+}
+
+/* Mengatur kotak tombol */
+.my-pagination li a, 
+.my-pagination li span {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* Mengatur tampilan tombol halaman yang sedang aktif */
+.my-pagination li.active span,
+.my-pagination li span[aria-current="page"] {
+    background-color: #10b981; /* Warna hijau seperti tema web Anda */
+    color: white;
+    border-color: #10b981;
+}
+
+/* Efek saat tombol diarahkan kursor */
+.my-pagination li a:hover {
+    background-color: #f3f4f6;
+}
+
+.my-pagination nav > div:first-child {
+    display: none !important;
+}
+
+.my-pagination nav > div:last-child {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.d-none {
+    gap : 5px;
+}
