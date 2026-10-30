@@ -37,6 +37,7 @@
                 @error('school_id') <p class="err">{{ $message }}</p> @enderror
             </div>
 
+
             <div class="field">
                 <label for="judul">Judul Laporan</label>
                 <input type="text" id="judul" name="judul" value="{{ old('judul') }}"

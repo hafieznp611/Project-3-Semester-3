@@ -14,6 +14,19 @@ return new class extends Migration
         Schema::create('meal_distributions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('school_id')->constrained('schools')->cascadeOnDelete();
+
+            $table->string('nama_sppg');
+            $table->string('penanggung_jawab')->nullable();
+            $table->string('kontak_penanggung_jawab',20)->nullable();
+
+            $table->date('tanggal_distribusi');
+            $table->string('menu');
+            $table->unsignedInteger('jumlah_porsi');
+
+            $table->enum('status', ['Dijadwalkan' , 'Dikirim', 'Diterima', 'Bermasalah'])
+                ->default('Dijadwalkan');
+            $table->text('catatan')->nullable;
         });
     }
 

@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\School;  
+use App\Models\IncidentReport;
 
 class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $reports = $request->user()
-            ->reports()
+            ->report()
+            ->with('school')
             ->latest()
-            ->pagination(10)
-            ->withQuerySting();
-        
+            ->paginate(10);
+
         return view('reports.index', compact('reports'));
     }
 
@@ -55,16 +56,21 @@ class ReportController extends Controller
         IncidentReport::create($data);
 
         return redirect()
-            ->route('reports.index')
+            ->route('dashboard')
             ->with('success', 'Laporan berhasil dikirim.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+   public function show(Request $request, string $id): View
     {
-        //
+        $report = $request->user()
+            ->report()
+            ->with('school')
+            ->findOrFail($id);
+
+        return view('reports.show', compact('report'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator; 
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-roles',fn (User $user): bool => $user->role === 'admin');
         Gate::define('reviewing',fn (User $user): bool => $user->role === 'reviewer');
         Gate::define('report',fn (User $user): bool => $user->role === 'complainant');
-    }
+        Gate::define('manage-distribution', fn (User $user) => in_array($user->role, ['admin', 'reviewer']));
+    
+        Paginator::useBootstrapFive(); 
+        }
 }

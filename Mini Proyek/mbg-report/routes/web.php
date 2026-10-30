@@ -23,5 +23,10 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('can:report')->group(function () {
         Route::resource('reports', ReportController::class)->except('destroy');
+        Route::get('/reports/{id}', [ReportController::class, 'show'])->name('reports.show');
     });
+});
+
+Route::middleware('can:manage-distribution')->group(function () {
+    Route::resource('distributions', DistributionController::class);
 });
