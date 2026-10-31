@@ -16,9 +16,11 @@
         }
     </style>
 
+
     @stack('styles')
 </head>
 <body>
     @yield('content')
 </body>
 </html>
+

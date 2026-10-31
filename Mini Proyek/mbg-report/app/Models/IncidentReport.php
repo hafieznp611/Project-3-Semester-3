@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IncidentReport extends Model
 {
@@ -11,18 +12,18 @@ class IncidentReport extends Model
         'judul', 'deskripsi', 'tanggal_kejadian', 'foto', 'status',
     ];
 
-    public function school()
+    public function school(): BelongsTo
     {
         return $this->belongsTo(School::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function mealDistribution()
+    public function mealDistribution(): BelongsTo
     {
-        return $this->belongsTo(mealDistribution::class);
+        return $this->belongsTo(MealDistribution::class);
     }
 }

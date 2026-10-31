@@ -10,7 +10,18 @@
 <header class="topbar">
     <div class="topbar-brand">🍱 MBG Report</div>
 
+    <div class="topbar-link">
+        @can('manage-master')
+            <div class="link-nav">
+                <a href="{{ route('schools.index') }}" class="nav-btn">Kelola Sekolah</a>
+                <a href="{{ route('sppgs.index') }}" class="nav-btn">Kelola SPPG</a>
+            </div>
+        @endcan
+    </div>
+
+
     <div class="topbar-user">
+
         <span>{{ $user->nama_lengkap }} <small>({{ $user->role }})</small></span>
 
         <form method="POST" action="{{ route('logout') }}">

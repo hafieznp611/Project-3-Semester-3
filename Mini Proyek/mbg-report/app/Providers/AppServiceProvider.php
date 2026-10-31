@@ -23,10 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('manage-roles',fn (User $user): bool => $user->role === 'admin');
-        Gate::define('reviewing',fn (User $user): bool => $user->role === 'reviewer');
+        Gate::define('reviewing',fn (User $user) => in_array($user->role, ['admin', 'reviewer']));
         Gate::define('report',fn (User $user): bool => $user->role === 'complainant');
         Gate::define('manage-distribution', fn (User $user) => in_array($user->role, ['admin', 'reviewer']));
-    
+        Gate::define('manage-master', fn (User $user) => $user->role === 'admin');
+
         Paginator::useBootstrapFive(); 
         }
 }

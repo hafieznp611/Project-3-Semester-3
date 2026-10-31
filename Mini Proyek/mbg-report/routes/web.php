@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SppgController;
+
 
 Route::get('/', fn () => redirect()->route('login'));
 
@@ -17,16 +20,28 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 
 
+
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware('can:report')->group(function () {
-        Route::resource('reports', ReportController::class)->except('destroy');
-        Route::get('/reports/{id}', [ReportController::class, 'show'])->name('reports.show');
+        Route::resource('reports', ReportController::class)->except(['index', 'show', 'destroy']);
     });
+
+     Route::get('reports/{report}', [ReportController::class, 'show'])->name('reports.show');
+
 });
 
 Route::middleware('can:manage-distribution')->group(function () {
     Route::resource('distributions', DistributionController::class);
 });
+
+
+Route::middleware('can:manage-master')->group(function () {
+    Route::resource('schools', SchoolController::class)->except('show');
+    Route::resource('sppgs', SppgController::class)->except('show','destroy');
+});
+
+Route::resource('schools', SchoolController::class)->except(['show', 'destroy']);
