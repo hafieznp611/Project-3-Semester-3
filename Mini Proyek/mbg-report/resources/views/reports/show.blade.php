@@ -2,14 +2,16 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
+
 @endpush
 
 @section('content')
 <div class="report-show">
     <div class="report-card">
         <h2 class="report-title">{{ $report->judul }}</h2>
-
+        <li>Pelapor : {{ $report->user->nama_lengkap ?? '-' }}</li>
         <ul class="report-meta">
+            <li>SPPG: {{ $report->school?->sppg?->nama ?? '-' }}</li>
             <li>{{ $report->school->nama ?? '-' }}</li>
             <li>{{ \Carbon\Carbon::parse($report->tanggal_kejadian)->format('d M Y') }}</li>
             <li><span class="badge">{{ $report->status }}</span></li>

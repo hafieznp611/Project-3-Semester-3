@@ -6,31 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('incident_reports', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('school_id')->constrained('schools')->cascadeOnDelete();
-            $table->foreignId('meal_distribute_id')->nullable()->constrained('meal_distributions')->nullOndelete();
+            $table->foreignId('meal_distribution_id')->nullable()
+                  ->constrained('meal_distributions')->nullOnDelete();
 
             $table->string('judul');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->date('tanggal_kejadian');
             $table->string('foto')->nullable();
 
-            $table->enum('status' , ['Menunggu', 'Diproses', 'Selesai', 'Ditolak'])
-                ->default('Menunggu');
+            $table->enum('status', ['menunggu', 'diproses', 'selesai', 'ditolak'])
+                  ->default('menunggu');
+
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('incident_reports');

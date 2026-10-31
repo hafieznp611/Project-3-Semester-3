@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\School;  
 use App\Models\IncidentReport;
+use App\Models\MealDistribution;
 
 class ReportController extends Controller
 {
@@ -50,6 +51,13 @@ class ReportController extends Controller
             $data['foto'] = $request->file('foto')->store('reports', 'public');
         }
 
+
+
+        $data['meal_distribution_id'] = MealDistribution::where('school_id', $data['school_id'])
+            ->whereDate('tanggal_distribusi', '<=', $data['tanggal_kejadian'])
+            ->orderByDesc('tanggal_distribusi')
+            ->value('id');
+
         $data['user_id'] = $request->user()->id;
         $data['status']  = 'menunggu';
 
@@ -63,11 +71,16 @@ class ReportController extends Controller
     /**
      * Display the specified resource.
      */
-   public function show(Request $request, string $id): View
+    public function show(Request $request, string $id): View
     {
-        $report = $request->user()
-            ->report()
-            ->with('school')
+        $user = $request->user();
+
+        $query = $user->role === 'complainant'
+            ? $user->report()
+            : IncidentReport::query();
+
+        $report = $query
+            ->with(['school.sppg', 'user'])
             ->findOrFail($id);
 
         return view('reports.show', compact('report'));

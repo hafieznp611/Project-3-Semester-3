@@ -2,63 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
+use App\Models\Sppg;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('recap.schools.index', [
+            'schools' => School::with('sppg')->orderBy('nama')->paginate(5),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('recap.schools.form', [
+            'school' => new School(),
+            'sppgs'  => Sppg::orderBy('nama')->get(),
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        School::create($this->validated($request));
+
+        return redirect()
+            ->route('schools.index')
+            ->with('success', 'Sekolah berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(School $school)
     {
-        //
+        return view('recap.schools.form', [
+            'school' => $school,
+            'sppgs'  => Sppg::orderBy('nama')->get(),
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, School $school)
     {
-        //
+        $school->update($this->validated($request));
+
+        return redirect()
+            ->route('schools.index')
+            ->with('success', 'Sekolah berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    private function validated(Request $request): array
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return $request->validate([
+            'nama'      => ['required', 'string', 'max:100'],
+            'kecamatan' => ['required', 'string', 'max:50'],
+            'sppg_id'   => ['nullable', 'exists:sppgs,id'],
+        ]);
     }
 }
