@@ -20,9 +20,10 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->date('tanggal_kejadian');
             $table->string('foto')->nullable();
+            $table->text('catatan_reviewer')->nullable();
 
-            $table->enum('status', ['menunggu', 'diproses', 'selesai', 'ditolak'])
-                  ->default('menunggu');
+            $table->enum('status', ['Menunggu', 'Diproses', 'Selesai', 'Ditolak'])
+                  ->default('Menunggu');
 
             $table->timestamps();
         });

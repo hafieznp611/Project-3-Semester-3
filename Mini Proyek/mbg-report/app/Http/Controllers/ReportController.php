@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use App\Models\School;  
 use App\Models\IncidentReport;
 use App\Models\MealDistribution;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
@@ -59,7 +60,7 @@ class ReportController extends Controller
             ->value('id');
 
         $data['user_id'] = $request->user()->id;
-        $data['status']  = 'menunggu';
+        $data['status']  = 'Menunggu';
 
         IncidentReport::create($data);
 
@@ -89,9 +90,14 @@ class ReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        //
+        $report = $this->editableReport($request, $id);
+
+        return view('reports.edit', [
+            'report'  => $report,
+            'schools' => School::orderBy('nama')->get(),
+        ]);
     }
 
     /**
@@ -99,10 +105,36 @@ class ReportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $report = $this->editableReport($request, $id);
+
+        $data = $request->validate([
+            'school_id'        => ['required', 'exists:schools,id'],
+            'judul'            => ['required', 'string', 'max:255'],
+            'tanggal_kejadian' => ['required', 'date', 'before_or_equal:today'],
+            'deskripsi'        => ['required', 'string', 'min:10'],
+            'foto'             => ['nullable', 'image', 'max:2048'],
+        ]);
+
+        if ($request->hasFile('foto')) {
+            if ($report->foto) {
+                Storage::disk('public')->delete($report->foto);   // hapus foto lama
+            }
+            $data['foto'] = $request->file('foto')->store('reports', 'public');
+        }
+
+        $report->update($data);
+
+        return redirect()
+            ->route('reports.show', $report)
+            ->with('success', 'Laporan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    private function editableReport(Request $request, string $id): IncidentReport
+    {
+        $report = $request->user()->report()->findOrFail($id);
+
+        abort_unless($report->status === 'Menunggu', 403, 'Laporan yang sudah diproses tidak bisa diubah.');
+
+        return $report;
+    }
 }

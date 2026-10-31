@@ -10,6 +10,7 @@ class IncidentReport extends Model
     protected $fillable = [
         'user_id', 'school_id', 'meal_distribution_id',
         'judul', 'deskripsi', 'tanggal_kejadian', 'foto', 'status',
+        'catatan_reviewer',
     ];
 
     public function school(): BelongsTo
