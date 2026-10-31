@@ -28,7 +28,10 @@ class SppgController extends Controller
 
     public function edit(Sppg $sppg)
     {
-        return view('sppgs.form', compact('sppg'));
+        return view('recap.sppgs.form', [
+            'sppg' => $sppg,
+            'sppgs'  => Sppg::orderBy('nama')->get(),
+        ]);;
     }
 
     public function update(Request $request, Sppg $sppg)

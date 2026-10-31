@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'username'     => $data['username'],
             'no_hp'        => $data['no_hp'] ?? null,
             'password'     => $data['password'],
-            'role'         => 'pelapor', // role diisi sistem, bukan dari form
+            'role'         => 'complainant', // role diisi sistem, bukan dari form
         ]);
 
         return redirect()
