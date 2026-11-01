@@ -8,6 +8,7 @@ use App\Models\School;
 use App\Models\IncidentReport;
 use App\Models\MealDistribution;
 use Illuminate\Support\Facades\Storage;
+use App\Services\ReportRuleService;
 
 class ReportController extends Controller
 {
@@ -38,15 +39,21 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ReportRuleService $rules)
     {
         $data = $request->validate([
             'school_id'        => ['required', 'exists:schools,id'],
             'judul'            => ['required', 'string', 'max:255'],
             'tanggal_kejadian' => ['required', 'date', 'before_or_equal:today'],
             'deskripsi'        => ['required', 'string', 'min:10'],
-            'foto'             => ['nullable', 'image', 'max:2048'],
+            'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
+
+        $rules->ensureNoDuplicate(
+            $request->user()->id,
+            (int) $data['school_id'],
+            $data['tanggal_kejadian']
+        );
 
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('reports', 'public');
@@ -103,7 +110,7 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, ReportRuleService $rules)
     {
         $report = $this->editableReport($request, $id);
 
@@ -114,6 +121,13 @@ class ReportController extends Controller
             'deskripsi'        => ['required', 'string', 'min:10'],
             'foto'             => ['nullable', 'image', 'max:2048'],
         ]);
+
+        $rules->ensureNoDuplicate(
+            $request->user()->id,
+            (int) $data['school_id'],
+            $data['tanggal_kejadian'],
+            $report->id
+        );
 
         if ($request->hasFile('foto')) {
             if ($report->foto) {
