@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use App\Observers\IncidentReportObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+
+
+#[ObservedBy([IncidentReportObserver::class])]
 class IncidentReport extends Model
 {
     protected $fillable = [
@@ -26,5 +31,10 @@ class IncidentReport extends Model
     public function mealDistribution(): BelongsTo
     {
         return $this->belongsTo(MealDistribution::class);
+    }
+
+    public function statusLogs()
+    {
+        return $this->hasMany(ReportStatusLog::class);
     }
 }

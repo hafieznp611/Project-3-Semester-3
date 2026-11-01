@@ -15,6 +15,7 @@
             <div class="link-nav">
                 <a href="{{ route('schools.index') }}" class="nav-btn">Kelola Sekolah</a>
                 <a href="{{ route('sppgs.index') }}" class="nav-btn">Kelola SPPG</a>
+                <a href="{{ route('admin.users.index') }}" class="nav-btn">Kelola Role</a>
             </div>
         @endcan
     </div>
@@ -41,6 +42,8 @@
 
     @can('reviewing')
         <div class="cards">
+            <a href="{{ route('rekap.index') }}" class="card-link">Rekap</a>
+
             <div class="card">
                 <p class="card-label">Total Laporan</p>
                 <p class="card-value">{{ $total }}</p>
@@ -56,36 +59,72 @@
         </div>
     @endcan
 
+    <div class="Search-Filter">
+        <form method="GET" action="{{ route('dashboard') }}" class="filter-bar">
+            <div class="filter-field">
+                <label for="q">Cari</label>
+                <input type="search" name="q" id="q" value="{{ $search }}"
+                    placeholder="{{ $user->role === 'complainant' ? 'Judul Laporan' : 'Judul atau Nama Pelapor' }}">
+            </div>
+
+            <div class="filter-field">
+                <label for="status">Status</label>
+                <select name="status" id="status">
+                    <option value="">Semua</option>
+                    @foreach ($statuses as $status)
+                        <option value="{{ $status }}" @selected($selectedStatus === $status)>
+                            {{ $status }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit">Terapkan</button>
+                <a href="{{ route('dashboard') }}" class="link-reset">Reset</a>
+            </div>
+        </form>
+    </div>
+    
+
     @can('report')
         <div class="cards">
-            <a href="{{ route('reports.create') }}" class="btn">Buat Laporan</a>
+            <a href="{{ route('reports.create') }}" class="btn" style="text-align: center;">Buat Laporan</a>
         </div>
     @endcan
 
 
     <div class="panel">
-        <h3>{{ $user->role === 'complainant' ? 'Laporan Saya' : 'Laporan Terbaru' }}</h3>
+        <h2>{{ $user->role === 'complainant' ? 'Laporan Saya' : 'Laporan Terbaru' }}</h3>
 
-        @forelse ($reports as $report)
+        <div class="panel-content">
+             @forelse ($reports as $report)
             <div style="padding:12px 0; border-bottom:1px solid #f3f4f6">
-                <strong>{{ $report->judul }}</strong>
-                <p class="subtitle" style="margin:2px 0 0">
-                    {{ $report->school->nama ?? '-' }} ·
-                    {{ \Carbon\Carbon::parse($report->tanggal_kejadian)->format('d M Y') }} ·
-                    <em>{{ $report->status }}</em>
+                    <strong><h3>{{ $report->judul }}</h3></strong>
+                    <p>{{ $report->user->nama_lengkap ?? '-' }}</p>
+                    <p class="subtitle" style="margin:2px 0 0">
+                        {{ $report->school->nama ?? '-' }} ·
+                        {{ \Carbon\Carbon::parse($report->tanggal_kejadian)->format('d M Y') }} ·
+                        <em>{{ $report->status }}</em>
+                    </p>
+                    <a href="{{ route('reports.show', $report) }}" class="btn-detail">Lihat Detail</a>
+                    
+                </div>
+                    
+            @empty
+                <p class="empty">
+                    {{ ($search !== '' || $selectedStatus !== '')
+                        ? 'Tidak ada laporan yang cocok dengan filter.'
+                        : 'Belum ada laporan.' }}
                 </p>
-                <a href="{{ route('reports.show', $report) }}" class="btn-detail">Lihat Detail</a>
-                   
+
+            @endforelse
+
+            <div class="my-pagination">
+                {{ $reports->links() }}
             </div>
-                
-        @empty
-            <p class="empty">Belum ada laporan.</p>
-
-        @endforelse
-
-        <div class="my-pagination">
-            {{ $reports->links() }}
         </div>
+       
     </div>
 
 </main>

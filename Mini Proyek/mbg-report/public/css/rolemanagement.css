@@ -1,0 +1,131 @@
+/* ==========================================================
+   MBG Report - role-management.css (halaman Kelola Role)
+   Simpan di: public/css/role-management.css
+   Dimuat SETELAH dashboard.css dan form.css.
+   Semua aturan dibatasi di dalam .role-page agar tidak bentrok.
+   ========================================================== */
+
+/* Tautan kembali di topbar */
+.topbar .link-back {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green-700, #15803d);
+    text-decoration: none;
+}
+.topbar .link-back:hover { text-decoration: underline; }
+
+/* ---------- Judul halaman ---------- */
+.role-page .page-head { margin-bottom: 20px; }
+.role-page .page-head h2 { margin: 0; }
+.role-page .page-head .subtitle { margin: 4px 0 0; }
+
+/* ---------- Pesan ---------- */
+.role-page .ok,
+.role-page .err {
+    margin-bottom: 18px;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+.role-page .ok  { color: #166534; background: #dcfce7; }
+.role-page .err { color: #991b1b; background: #fee2e2; }
+
+/* ---------- Tabel ---------- */
+.role-page .table-wrap {
+    overflow-x: auto;
+    margin: -6px -6px 0;
+    padding: 0 6px;
+}
+
+.role-page .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.role-page .data-table th {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #6b7280;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+.role-page .data-table th:first-child { border-top-left-radius: 10px; }
+.role-page .data-table th:last-child  { border-top-right-radius: 10px; }
+
+.role-page .data-table td {
+    padding: 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.role-page .data-table tbody tr:last-child td { border-bottom: 0; }
+.role-page .data-table tbody tr:hover { background: #f9fafb; }
+
+.role-page .col-id { width: 56px; color: #9ca3af; }
+.role-page .col-name { font-weight: 600; }
+.role-page .col-username { color: #6b7280; }
+
+/* ---------- Badge role ---------- */
+.role-page .role-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    background: #e5e7eb;
+    border-radius: 999px;
+}
+.role-page .role-admin       { color: #166534; background: #dcfce7; }
+.role-page .role-reviewer    { color: #1e40af; background: #dbeafe; }
+.role-page .role-complainant { color: #374151; background: #f3f4f6; }
+
+/* ---------- Form ubah role ---------- */
+.role-page .role-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.role-page .role-form select {
+    width: auto;
+    min-width: 140px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 14px;
+    color: #111827;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+.role-page .role-form select:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, .18);
+}
+
+.role-page .role-form button {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: #16a34a;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+}
+.role-page .role-form button:hover { background: #15803d; }
+
+.role-page .kecil { font-size: 13px; color: #9ca3af; }
+
+/* ---------- Layar kecil ---------- */
+@media (max-width: 560px) {
+    .role-page .role-form { flex-direction: column; align-items: stretch; }
+}

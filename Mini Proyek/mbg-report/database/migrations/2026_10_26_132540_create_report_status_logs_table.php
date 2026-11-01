@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('report_status_logs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('incident_report_id')->constrained('incident_reports')->cascadeOnDelete();
+            $table->string('old_status', 20)->nullable();
+            $table->string('new_status', 20);
+            $table->foreignId('changed_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
