@@ -3,46 +3,24 @@
 namespace App\Observers;
 
 use App\Models\IncidentReport;
+use App\Models\ReportStatusLog;
 
 class IncidentReportObserver
 {
     /**
-     * Handle the IncidentReport "created" event.
+     * Catat perubahan status laporan.
      */
-    public function created(IncidentReport $incidentReport): void
+    public function updated(IncidentReport $report): void
     {
-        //
-    }
+        if (! $report->wasChanged('status')) {
+            return;
+        }
 
-    /**
-     * Handle the IncidentReport "updated" event.
-     */
-    public function updated(IncidentReport $incidentReport): void
-    {
-        //
-    }
-
-    /**
-     * Handle the IncidentReport "deleted" event.
-     */
-    public function deleted(IncidentReport $incidentReport): void
-    {
-        //
-    }
-
-    /**
-     * Handle the IncidentReport "restored" event.
-     */
-    public function restored(IncidentReport $incidentReport): void
-    {
-        //
-    }
-
-    /**
-     * Handle the IncidentReport "force deleted" event.
-     */
-    public function forceDeleted(IncidentReport $incidentReport): void
-    {
-        //
+        ReportStatusLog::create([
+            'incident_report_id' => $report->id,
+            'old_status'         => $report->getOriginal('status'),
+            'new_status'         => $report->status,
+            'changed_by'         => auth()->id(),
+        ]);
     }
 }
