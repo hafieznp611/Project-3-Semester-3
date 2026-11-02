@@ -10,14 +10,14 @@ class SchoolController extends Controller
 {
     public function index()
     {
-        return view('recap.schools.index', [
+        return view('rekap.schools.index', [
             'schools' => School::with('sppg')->orderBy('nama')->paginate(5),
         ]);
     }
 
     public function create()
     {
-        return view('recap.schools.form', [
+        return view('rekap.schools.form', [
             'school' => new School(),
             'sppgs'  => Sppg::orderBy('nama')->get(),
         ]);
@@ -34,7 +34,7 @@ class SchoolController extends Controller
 
     public function edit(School $school)
     {
-        return view('recap.schools.form', [
+        return view('rekap.schools.form', [
             'school' => $school,
             'sppgs'  => Sppg::orderBy('nama')->get(),
         ]);
