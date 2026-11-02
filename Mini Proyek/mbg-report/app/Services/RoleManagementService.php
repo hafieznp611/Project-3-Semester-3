@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class RoleManagementService
 {
-   ublic function changeRole(User $actor, User $target, string $newRole): void
+   public function changeRole(User $actor, User $target, string $newRole): void
 {
     if ($actor->role !== 'admin') {
         throw ValidationException::withMessages(['role' => 'Anda tidak berwenang mengubah role.']);

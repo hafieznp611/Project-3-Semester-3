@@ -9,14 +9,14 @@ class SppgController extends Controller
 {
     public function index()
     {
-        return view('recap.sppgs.index', [
+        return view('rekap.sppgs.index', [
             'sppgs' => Sppg::withCount('schools')->orderBy('nama')->paginate(5)
         ]);
     }
 
     public function create()
     {
-        return view('recap.sppgs.form', ['sppg' => new Sppg()]);
+        return view('rekap.sppgs.form', ['sppg' => new Sppg()]);
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class SppgController extends Controller
 
     public function edit(Sppg $sppg)
     {
-        return view('recap.sppgs.form', [
+        return view('rekap.sppgs.form', [
             'sppg' => $sppg,
             'sppgs'  => Sppg::orderBy('nama')->get(),
         ]);;
